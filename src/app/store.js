@@ -6,4 +6,3 @@ export const store = configureStore({
     games: gamesReducer,
   },
 });
-/* Olá
