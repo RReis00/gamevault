@@ -12,6 +12,16 @@ export const fetchPopularGames = createAsyncThunk(
   }
 );
 
+export const searchGames = createAsyncThunk(
+  "games/searchGames",
+  async (term) => {
+    const response = await axios.get(
+      `${BASE_URL}?key=${API_KEY}&search=${term}&page_size=20`
+    );
+    return response.data.results;
+  }
+);
+
 const gamesSlice = createSlice({
   name: "games",
   initialState: {
@@ -30,6 +40,19 @@ const gamesSlice = createSlice({
         state.popular = action.payload;
       })
       .addCase(fetchPopularGames.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      });
+
+    builder
+      .addCase(searchGames.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(searchGames.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.popular = action.payload;
+      })
+      .addCase(searchGames.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
       });
