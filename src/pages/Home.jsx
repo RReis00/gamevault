@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPopularGames } from "../features/games/gamesSlice";
+import GameCard from "../components/GameCard";
 
 function Home() {
   const dispatch = useDispatch();
@@ -22,17 +23,7 @@ function Home() {
       <div className="row">
         {popular.map((game) => (
           <div key={game.id} className="col-md-4 mb-4">
-            <div className="card h-100 shadow">
-              <img
-                src={game.background_image}
-                className="card-img-top"
-                alt={game.name}
-              />
-              <div className="card-body">
-                <h5 className="card-title">{game.name}</h5>
-                <p className="card-text">Rating: {game.rating}</p>
-              </div>
-            </div>
+            <GameCard game={game} />
           </div>
         ))}
       </div>
