@@ -1,8 +1,13 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchPopularGames, searchGames } from "../features/games/gamesSlice";
+import {
+  fetchPopularGames,
+  searchGames,
+  fetchGamesByGenre,
+} from "../features/games/gamesSlice";
 import GameCard from "../components/GameCard";
 import SearchBar from "../components/SearchBar";
+import GenreFilter from "../components/GenreFilter";
 
 function Home() {
   const dispatch = useDispatch();
@@ -16,6 +21,14 @@ function Home() {
 
   const handleSearch = (term) => {
     dispatch(searchGames(term));
+  };
+
+  const handleGenreSelect = (genreSlug) => {
+    if (genreSlug === null) {
+      dispatch(fetchPopularGames());
+    } else {
+      dispatch(fetchGamesByGenre(genreSlug));
+    }
   };
 
   return (
@@ -32,6 +45,7 @@ function Home() {
           </button>
         </div>
       )}
+      <GenreFilter onSelectGenre={handleGenreSelect} />
 
       {status === "loading" && <p className="text-center">Loading...</p>}
       {status === "failed" && (

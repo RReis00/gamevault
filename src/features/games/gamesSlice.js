@@ -7,7 +7,7 @@ const BASE_URL = "https://api.rawg.io/api/games";
 export const fetchPopularGames = createAsyncThunk(
   "games/fetchPopularGames",
   async () => {
-    const response = await axios.get(`${BASE_URL}?key=${API_KEY}&page_size=20`);
+    const response = await axios.get(`${BASE_URL}?key=${API_KEY}&page_size=18`);
     return response.data.results;
   }
 );
@@ -16,7 +16,17 @@ export const searchGames = createAsyncThunk(
   "games/searchGames",
   async (term) => {
     const response = await axios.get(
-      `${BASE_URL}?key=${API_KEY}&search=${term}&page_size=20`
+      `${BASE_URL}?key=${API_KEY}&search=${term}&page_size=18`
+    );
+    return response.data.results;
+  }
+);
+
+export const fetchGamesByGenre = createAsyncThunk(
+  "games/fetchGamesByGenre",
+  async (genreSlug) => {
+    const response = await axios.get(
+      `${BASE_URL}?key=${API_KEY}&genres=${genreSlug}&page_size=18`
     );
     return response.data.results;
   }
@@ -53,6 +63,19 @@ const gamesSlice = createSlice({
         state.popular = action.payload;
       })
       .addCase(searchGames.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      });
+
+    builder
+      .addCase(fetchGamesByGenre.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchGamesByGenre.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.popular = action.payload;
+      })
+      .addCase(fetchGamesByGenre.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
       });
