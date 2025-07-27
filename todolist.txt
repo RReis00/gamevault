@@ -1,0 +1,2 @@
+-Fazer com que sempre que abra o Home, dê fetchPopularGames
+-Mais jogos, 18 por pagina
