@@ -1,6 +1,23 @@
 import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addFavorite,
+  removeFavorite,
+} from "../features/favorites/favoritesSlice";
 
 function GameCard({ game }) {
+  const dispatch = useDispatch();
+  const favorites = useSelector((state) => state.favorites.list);
+
+  const isFavorite = favorites.some((fav) => fav.id === game.id);
+
+  const handleClick = () => {
+    if (isFavorite) {
+      dispatch(removeFavorite(game.id));
+    } else {
+      dispatch(addFavorite(game));
+    }
+  };
   return (
     <div className="card h-100 shadow-sm">
       <img
@@ -11,16 +28,23 @@ function GameCard({ game }) {
       />
       <div className="card-body d-flex flex-column justify-content-between">
         <div>
-            <h5 className="card-title">{game.name}</h5>
-            <p className="card-text mb-1">Rating: {game.rating}</p>
+          <h5 className="card-title">{game.name}</h5>
+          <p className="card-text mb-1">Rating: {game.rating}</p>
         </div>
-        <button className="btn btn-outline-primary mt-2">Add Favorite</button>
+        <button
+          className={`btn ${
+            isFavorite ? "btn-danger" : "btn-outline-primary"
+          } mt-2`}
+          onClick={handleClick}
+        >
+          {isFavorite ? "Remove Favorite" : "Add Favorite"}
+        </button>
       </div>
     </div>
   );
 }
 
-GameCard.PropTypes = {
+GameCard.propTypes = {
   game: PropTypes.object.isRequired,
 };
 
