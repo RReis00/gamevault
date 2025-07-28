@@ -32,12 +32,22 @@ export const fetchGamesByGenre = createAsyncThunk(
   }
 );
 
+export const fetchGameDetails = createAsyncThunk(
+  "games/fetchGameDetails",
+  async (id) => {
+    const response = await axios.get(`${BASE_URL}/${id}?key=${API_KEY}`);
+    return response.data;
+  }
+);
+
 const gamesSlice = createSlice({
   name: "games",
   initialState: {
     popular: [],
     status: "idle",
     error: null,
+    selectedGame: null,
+    detailStatus: "idle",
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -77,6 +87,19 @@ const gamesSlice = createSlice({
       })
       .addCase(fetchGamesByGenre.rejected, (state, action) => {
         state.status = "failed";
+        state.error = action.error.message;
+      });
+
+    builder
+      .addCase(fetchGameDetails.pending, (state) => {
+        state.detailStatus = "loading";
+      })
+      .addCase(fetchGameDetails.fulfilled, (state, action) => {
+        state.detailStatus = "succeeded";
+        state.selectedGame = action.payload;
+      })
+      .addCase(fetchGameDetails.rejected, (state, action) => {
+        state.detailStatus = "failed";
         state.error = action.error.message;
       });
   },

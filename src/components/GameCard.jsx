@@ -4,6 +4,7 @@ import {
   addFavorite,
   removeFavorite,
 } from "../features/favorites/favoritesSlice";
+import { Link } from "react-router-dom";
 
 function GameCard({ game }) {
   const dispatch = useDispatch();
@@ -19,28 +20,30 @@ function GameCard({ game }) {
     }
   };
   return (
-    <div className="card h-100 shadow-sm">
-      <img
-        src={game.background_image}
-        className="card-img-top"
-        alt={game.name}
-        style={{ objectFit: "cover", height: "200px" }}
-      />
-      <div className="card-body d-flex flex-column justify-content-between">
-        <div>
-          <h5 className="card-title">{game.name}</h5>
-          <p className="card-text mb-1">Rating: {game.rating}</p>
+    <Link to={`/game/${game.id}`} className="text-decoration-none text-dark">
+      <div className="card h-100 shadow-sm">
+        <img
+          src={game.background_image}
+          className="card-img-top"
+          alt={game.name}
+          style={{ objectFit: "cover", height: "200px" }}
+        />
+        <div className="card-body d-flex flex-column justify-content-between">
+          <div>
+            <h5 className="card-title">{game.name}</h5>
+            <p className="card-text mb-1">Rating: {game.rating}</p>
+          </div>
+          <button
+            className={`btn ${
+              isFavorite ? "btn-danger" : "btn-outline-primary"
+            } mt-2`}
+            onClick={handleClick}
+          >
+            {isFavorite ? "Remove Favorite" : "Add Favorite"}
+          </button>
         </div>
-        <button
-          className={`btn ${
-            isFavorite ? "btn-danger" : "btn-outline-primary"
-          } mt-2`}
-          onClick={handleClick}
-        >
-          {isFavorite ? "Remove Favorite" : "Add Favorite"}
-        </button>
       </div>
-    </div>
+    </Link>
   );
 }
 

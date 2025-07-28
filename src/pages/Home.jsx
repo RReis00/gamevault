@@ -24,11 +24,7 @@ function Home() {
   };
 
   const handleGenreSelect = (genreSlug) => {
-    if (genreSlug === null) {
-      dispatch(fetchPopularGames());
-    } else {
-      dispatch(fetchGamesByGenre(genreSlug));
-    }
+    dispatch(genreSlug ? fetchGamesByGenre(genreSlug) : fetchPopularGames());
   };
 
   return (
