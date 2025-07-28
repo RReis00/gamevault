@@ -40,6 +40,12 @@ function GameDetails() {
         <strong>Platforms:</strong>{" "}
         {selectedGame.platforms.map((p) => p.platform.name).join(", ")}
       </p>
+      <button
+        className="btn btn-secondary mb-4"
+        onClick={() => window.history.back()}
+      >
+        Voltar
+      </button>
     </div>
   );
 }

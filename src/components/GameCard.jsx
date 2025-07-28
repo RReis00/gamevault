@@ -12,13 +12,16 @@ function GameCard({ game }) {
 
   const isFavorite = favorites.some((fav) => fav.id === game.id);
 
-  const handleClick = () => {
+  const handleClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
     if (isFavorite) {
       dispatch(removeFavorite(game.id));
     } else {
       dispatch(addFavorite(game));
     }
   };
+  
   return (
     <Link to={`/game/${game.id}`} className="text-decoration-none text-dark">
       <div className="card h-100 shadow-sm">
