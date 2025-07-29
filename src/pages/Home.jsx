@@ -31,7 +31,7 @@ function Home() {
     <div>
       <h1 className="text-center mb-4"> Popular Games</h1>
       <SearchBar onSearch={handleSearch} />
-      {status === "succeeded" && (
+      {status !== "loading" && (
         <div className="text-center mb-3">
           <button
             className="btn btn-outline-secondary"
@@ -43,12 +43,22 @@ function Home() {
       )}
       <GenreFilter onSelectGenre={handleGenreSelect} />
 
-      {status === "loading" && <p className="text-center">Loading...</p>}
+      {status === "loading" && (
+        <div className="text-center mt-4">
+          <div className="spinner-border text-primary" role="status" />
+          <p className="mt-2">Loading games...</p>
+        </div>
+      )}
       {status === "failed" && (
-        <p className="text-center text-danger">Error: {error}</p>
+        <div className="alert alert-danger text-center mt-4" role="alert">
+          ❌ Error loading games: <strong>{error}</strong>
+          Please try again later.
+        </div>
       )}
       {status === "succeeded" && popular.length === 0 && (
-        <p className="text-center">No results found.</p>
+        <div className="alert alert-warning text-center mt-4" role="alert">
+          We did not find any games for this search. 😕
+        </div>
       )}
 
       <div className="row">
