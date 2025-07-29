@@ -4,31 +4,19 @@ import axios from "axios";
 const API_KEY = import.meta.env.VITE_RAWG_API_KEY;
 const BASE_URL = "https://api.rawg.io/api/games";
 
-export const fetchPopularGames = createAsyncThunk(
-  "games/fetchPopularGames",
-  async () => {
-    const response = await axios.get(`${BASE_URL}?key=${API_KEY}&page_size=18`);
-    return response.data.results;
-  }
-);
+export const fetchGames = createAsyncThunk(
+  "games/fetchGames",
+  async ({ mode = "popular", query = "", genre = "", page = 1 }, thunkAPI) => {
+    let url = `${BASE_URL}?key=${API_KEY}&page=${page}&page_size=18`;
 
-export const searchGames = createAsyncThunk(
-  "games/searchGames",
-  async (term) => {
-    const response = await axios.get(
-      `${BASE_URL}?key=${API_KEY}&search=${term}&page_size=18`
-    );
-    return response.data.results;
-  }
-);
+    if (mode === "search" && query) {
+      url += `&search=${query}`;
+    } else if (mode === "genre" && genre) {
+      url += `&genres=${genre}`;
+    }
 
-export const fetchGamesByGenre = createAsyncThunk(
-  "games/fetchGamesByGenre",
-  async (genreSlug) => {
-    const response = await axios.get(
-      `${BASE_URL}?key=${API_KEY}&genres=${genreSlug}&page_size=18`
-    );
-    return response.data.results;
+    const response = await axios.get(url);
+    return { results: response.data.results, mode, query, genre, page };
   }
 );
 
@@ -43,49 +31,50 @@ export const fetchGameDetails = createAsyncThunk(
 const gamesSlice = createSlice({
   name: "games",
   initialState: {
-    popular: [],
+    list: [],
     status: "idle",
     error: null,
     selectedGame: null,
     detailStatus: "idle",
+
+    page: 1,
+    hasMore: true,
+
+    mode: "popular",
+    query: "",
+    genre: "",
   },
-  reducers: {},
+  reducers: {
+    resetGamesState: (state) => {
+      state.list = [];
+      state.page = 1;
+      state.hasMore = true;
+      state.status = "idle;";
+    },
+  },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchPopularGames.pending, (state) => {
+      .addCase(fetchGames.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(fetchPopularGames.fulfilled, (state, action) => {
-        state.status = "succeeded";
-        state.popular = action.payload;
-      })
-      .addCase(fetchPopularGames.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.error.message;
-      });
+      .addCase(fetchGames.fulfilled, (state, action) => {
+        const { results, mode, query, genre, page } = action.payload;
 
-    builder
-      .addCase(searchGames.pending, (state) => {
-        state.status = "loading";
-      })
-      .addCase(searchGames.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.popular = action.payload;
-      })
-      .addCase(searchGames.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.error.message;
-      });
+        state.mode = mode;
+        state.query = query;
+        state.genre = genre;
+        state.page = page;
 
-    builder
-      .addCase(fetchGamesByGenre.pending, (state) => {
-        state.status = "loading";
+        if (page === 1) {
+          state.list = results;
+        } else {
+          state.list = [...state.list, ...results];
+        }
+
+        state.hasMore = results.length === 18;
       })
-      .addCase(fetchGamesByGenre.fulfilled, (state, action) => {
-        state.status = "succeeded";
-        state.popular = action.payload;
-      })
-      .addCase(fetchGamesByGenre.rejected, (state, action) => {
+      .addCase(fetchGames.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
       });
@@ -104,5 +93,7 @@ const gamesSlice = createSlice({
       });
   },
 });
+
+export const { resetGamesState } = gamesSlice.actions;
 
 export default gamesSlice.reducer;
