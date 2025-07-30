@@ -5,9 +5,10 @@ import {
   fetchGameScreenshots,
   fetchGameTrailers,
 } from "../features/games/gamesSlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function GameDetails() {
+  const [selectedScreenshot, setSelectedScreenshot] = useState(null);
   const { id } = useParams();
   const dispatch = useDispatch();
   const { selectedGame, detailStatus, trailers, screenshots, error } =
@@ -121,7 +122,8 @@ function GameDetails() {
                 src={s.image}
                 alt="Screenshot"
                 className="img-thumbnail shadow-sm"
-                style={{ maxWidth: "220px" }}
+                style={{ maxWidth: "220px", cursor: "pointer" }}
+                onClick={() => setSelectedScreenshot(s.image)}
               />
             ))}
           </div>
@@ -129,6 +131,39 @@ function GameDetails() {
       ) : (
         <div className="alert alert-info text-center mb-5">
           No screenshots available.
+        </div>
+      )}
+
+      {selectedScreenshot && (
+        <div
+          className="position-fixed top-0 start-0 w-100 h-100"
+          style={{
+            background: "rgba(0,0,0,0.7)",
+            backdropFilter: "blur(5px)",
+            zIndex: 1050,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+          onClick={() => setSelectedScreenshot(null)}
+        >
+          <img
+            src={selectedScreenshot}
+            alt="Expanded Screenshot"
+            className="img-fluid rounded shadow-lg"
+            style={{
+              maxHeight: "90%",
+              maxWidth: "90%",
+              border: "4px solid white",
+            }}
+            onClick={(e) => e.stopPropagation()}
+          />
+          <button
+            onClick={() => setSelectedScreenshot(null)}
+            className="btn btn-light position-absolute top-0 end-0 m-4 fs-4"
+          >
+            ✖
+          </button>
         </div>
       )}
 
