@@ -38,7 +38,7 @@ function GenreFilter({ onSelectGenre }) {
     <div className="d-flex flex-wrap gap-2 justify-content-center mb-4">
       <button
         className={`btn btn-sm ${
-          selected === null ? "btn-primary" : "btn-outline-secondary"
+          selected === null ? "btn-dark" : "btn-outline-secondary"
         }`}
         onClick={() => handleSelect(null)}
       >
@@ -48,7 +48,7 @@ function GenreFilter({ onSelectGenre }) {
         <button
           key={genre.id}
           className={`btn btn-sm ${
-            selected === genre.slug ? "btn-primary" : "btn-outline-secondary"
+            selected === genre.slug ? "btn-dark" : "btn-outline-secondary"
           }`}
           onClick={() => handleSelect(genre.slug)}
         >

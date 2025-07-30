@@ -38,7 +38,7 @@ function GameCard({ game }) {
           </div>
           <button
             className={`btn ${
-              isFavorite ? "btn-danger" : "btn-outline-primary"
+              isFavorite ? "btn-danger" : "btn-outline-dark"
             } mt-2`}
             onClick={handleClick}
           >

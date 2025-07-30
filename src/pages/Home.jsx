@@ -57,20 +57,6 @@ function Home() {
       <SearchBar onSearch={handleSearch} />
       <GenreFilter onSelectGenre={handleGenreSelect} />
 
-      {status !== "loading" && (
-        <div className="text-center mb-3">
-          <button
-            className="btn btn-outline-secondary"
-            onClick={() => {
-              dispatch(resetGamesState());
-              dispatch(fetchGames({ mode: "popular", page: 1 }));
-            }}
-          >
-            🔄 Popular Games
-          </button>
-        </div>
-      )}
-
       {status === "loading" && list.length === 0 && (
         <div className="text-center mt-4">
           <div className="spinner-border text-primary" role="status" />
