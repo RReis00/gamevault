@@ -28,6 +28,26 @@ export const fetchGameDetails = createAsyncThunk(
   }
 );
 
+export const fetchGameTrailers = createAsyncThunk(
+  "games/fetchGameTrailers",
+  async (id) => {
+    const response = await axios.get(
+      `https://api.rawg.io/api/games/${id}/movies?key=${API_KEY}`
+    );
+    return response.data.results;
+  }
+);
+
+export const fetchGameScreenshots = createAsyncThunk(
+  "game/fetchGameScreenshots",
+  async (id) => {
+    const response = await axios.get(
+      `https://api.rawg.io/api/games/${id}/screenshots?key=${API_KEY}`
+    );
+    return response.data.results;
+  }
+);
+
 const gamesSlice = createSlice({
   name: "games",
   initialState: {
@@ -43,6 +63,12 @@ const gamesSlice = createSlice({
     mode: "popular",
     query: "",
     genre: "",
+
+    trailers: [],
+    trailerStatus: "idle",
+
+    screenshots: [],
+    screenshotsStatus: "idle",
   },
   reducers: {
     resetGamesState: (state) => {
@@ -89,6 +115,32 @@ const gamesSlice = createSlice({
       })
       .addCase(fetchGameDetails.rejected, (state, action) => {
         state.detailStatus = "failed";
+        state.error = action.error.message;
+      });
+
+    builder
+      .addCase(fetchGameTrailers.pending, (state) => {
+        state.trailerStatus = "loading";
+      })
+      .addCase(fetchGameTrailers.fulfilled, (state, action) => {
+        state.trailerStatus = "succeeded";
+        state.trailers = action.payload;
+      })
+      .addCase(fetchGameTrailers.rejected, (state, action) => {
+        state.trailerStatus = "failed";
+        state.error = action.error.message;
+      });
+
+    builder
+      .addCase(fetchGameScreenshots.pending, (state) => {
+        state.screenshotsStatus = "loading";
+      })
+      .addCase(fetchGameScreenshots.fulfilled, (state, action) => {
+        state.screenshotsStatus = "succeeded";
+        state.screenshots = action.payload;
+      })
+      .addCase(fetchGameScreenshots.rejected, (state, action) => {
+        state.screenshotsStatus = "failed";
         state.error = action.error.message;
       });
   },
