@@ -1,5 +1,6 @@
 import { Link, Outlet } from "react-router-dom";
 import { Container, Nav, Navbar } from "react-bootstrap";
+import ThemeToggle from "./ThemeToggle";
 
 function Layout() {
   return (
@@ -18,6 +19,7 @@ function Layout() {
               <Nav.Link as={Link} to="/favorites">
                 Favorites
               </Nav.Link>
+              <ThemeToggle />
             </Nav>
           </Navbar.Collapse>
         </Container>

@@ -20,6 +20,8 @@ function GenreFilter({ onSelectGenre }) {
     onSelectGenre(genreSlug);
   };
 
+  console.log("Selected genre:", selected);
+
   if (status === "loading")
     return (
       <div className="text-center mt-3">
@@ -37,9 +39,7 @@ function GenreFilter({ onSelectGenre }) {
   return (
     <div className="d-flex flex-wrap gap-2 justify-content-center mb-4">
       <button
-        className={`btn btn-sm ${
-          selected === null ? "btn-dark" : "btn-outline-secondary"
-        }`}
+        className={`genre-button ${selected === null ? "active" : ""}`}
         onClick={() => handleSelect(null)}
       >
         All
@@ -47,9 +47,7 @@ function GenreFilter({ onSelectGenre }) {
       {genres.map((genre) => (
         <button
           key={genre.id}
-          className={`btn btn-sm ${
-            selected === genre.slug ? "btn-dark" : "btn-outline-secondary"
-          }`}
+          className={`genre-button ${selected === genre.slug ? "active" : ""}`}
           onClick={() => handleSelect(genre.slug)}
         >
           {genre.name}
