@@ -14,12 +14,11 @@ function GenreFilter({ onSelectGenre }) {
     }
   }, [dispatch, status]);
 
-  const handleSelect = (genreSlug) => {
-    if (selected === genreSlug) return;
-    setSelected(genreSlug);
-    onSelectGenre(genreSlug);
+  const handleSelect = ({ slug, name }) => {
+    if (selected === slug) return;
+    setSelected(slug);
+    onSelectGenre({ slug, name });
   };
-
   console.log("Selected genre:", selected);
 
   if (status === "loading")
@@ -40,7 +39,7 @@ function GenreFilter({ onSelectGenre }) {
     <div className="d-flex flex-wrap gap-2 justify-content-center mb-4">
       <button
         className={`genre-button ${selected === null ? "active" : ""}`}
-        onClick={() => handleSelect(null)}
+        onClick={() => handleSelect({ slug: null, name: "All" })}
       >
         All
       </button>
@@ -48,7 +47,7 @@ function GenreFilter({ onSelectGenre }) {
         <button
           key={genre.id}
           className={`genre-button ${selected === genre.slug ? "active" : ""}`}
-          onClick={() => handleSelect(genre.slug)}
+          onClick={() => handleSelect({ slug: genre.slug, name: genre.name })}
         >
           {genre.name}
         </button>

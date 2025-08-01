@@ -5,8 +5,10 @@ import {
   removeFavorite,
 } from "../features/favorites/favoritesSlice";
 import { Link } from "react-router-dom";
+import { useTheme } from "../context/ThemeContext";
 
 function GameCard({ game }) {
+  const { theme } = useTheme();
   const dispatch = useDispatch();
   const favorites = useSelector((state) => state.favorites.list);
 
@@ -21,10 +23,14 @@ function GameCard({ game }) {
       dispatch(addFavorite(game));
     }
   };
-  
+
   return (
-    <Link to={`/game/${game.id}`} className="text-decoration-none text-dark">
-      <div className="card h-100 shadow-sm">
+    <Link to={`/game/${game.id}`} className="text-decoration-none">
+      <div
+        className={`card h-100 shadow-sm ${
+          theme === "dark" ? "bg-dark text-light" : ""
+        }`}
+      >
         <img
           src={game.background_image}
           className="card-img-top"
@@ -38,7 +44,11 @@ function GameCard({ game }) {
           </div>
           <button
             className={`btn ${
-              isFavorite ? "btn-danger" : "btn-outline-dark"
+              isFavorite
+                ? "btn-danger"
+                : theme === "dark"
+                ? "btn-outline-light"
+                : "btn-outline-dark"
             } mt-2`}
             onClick={handleClick}
           >

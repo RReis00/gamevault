@@ -3,10 +3,9 @@ body.light {
   --bg-color: #ffffff;
   --text-color: #212529;
   --card-bg: #f8f9fa;
-  --btn-active-bg: #0d6efd;
+  --btn-active-bg: #c7a144;
   --btn-active-color: #fff;
-  --navbar-bg: #f8f9fa;
-  --navbar-text: #000;
+  --primary-color: #b38f00; 
 }
 
 /* Dark Theme */
@@ -14,11 +13,11 @@ body.dark {
   --bg-color: #121212;
   --text-color: #f8f9fa;
   --card-bg: #1e1e1e;
-  --btn-active-bg: #0dcaf0;
+  --btn-active-bg: #d4af37; 
   --btn-active-color: #000;
-  --navbar-bg: #1a1a1a;
-  --navbar-text: #fff;
+  --primary-color: #d4af37;
 }
+
 
 body {
   background-color: var(--bg-color);

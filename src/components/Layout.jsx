@@ -1,23 +1,31 @@
 import { Link, Outlet } from "react-router-dom";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import ThemeToggle from "./ThemeToggle";
+import { useTheme } from "../context/ThemeContext";
 
 function Layout() {
+  const { theme } = useTheme();
+
   return (
     <>
-      <Navbar bg="dark" variant="dark" exapand="md" className="shadow-sm">
+      <Navbar
+        bg={theme === "dark" ? "dark" : "light"}
+        variant={theme === "dark" ? "dark" : "light"}
+        expand="md"
+        className="shadow-sm"
+      >
         <Container>
           <Navbar.Brand as={Link} to="/" className="fw-bold fs-4">
-            🎮 GameVault
+            <span className="text-warning">GameVault</span>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="main-navbar" />
           <Navbar.Collapse id="main-navbar">
-            <Nav className="ms-auto">
+            <Nav className="ms-auto align-items-center">
               <Nav.Link as={Link} to="/" className="me-2">
-                Home
+                <span className="text-warning">Home</span>
               </Nav.Link>
-              <Nav.Link as={Link} to="/favorites">
-                Favorites
+              <Nav.Link as={Link} to="/favorites" className="me-3">
+                <span className="text-warning">Favorites</span>
               </Nav.Link>
               <ThemeToggle />
             </Nav>
@@ -25,7 +33,13 @@ function Layout() {
         </Container>
       </Navbar>
 
-      <main className="py-4">
+      <main
+        className="py-4"
+        style={{
+          backgroundColor: "var(--bg-color)",
+          color: "var(--text-color)",
+        }}
+      >
         <Container>
           <Outlet />
         </Container>
