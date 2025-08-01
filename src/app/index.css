@@ -349,3 +349,43 @@ body {
 *::-webkit-scrollbar-track {
   background: transparent;
 }
+
+/* ===========================
+   RESPONSIVE ADJUSTMENTS
+   =========================== */
+@media (max-width: 576px) {
+  .input-accent {
+    width: 100% !important;
+  }
+
+  form.d-flex {
+    flex-wrap: wrap;
+  }
+  form.d-flex > .btn {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+
+  .card.app-card .card-img-top {
+    height: 160px !important;
+  }
+
+  .thumb-image {
+    max-width: 45% !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .card.app-card .card-img-top {
+    height: 180px !important;
+  }
+
+  .page-title {
+    font-size: 1.6rem;
+  }
+}
+
+.btn,
+.genre-chip {
+  touch-action: manipulation;
+}
