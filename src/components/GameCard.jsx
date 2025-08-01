@@ -16,6 +16,9 @@ function GameCard({ game }) {
   const handleClick = (e) => {
     e.preventDefault();
     e.stopPropagation();
+
+    if (e.currentTarget?.blur) e.currentTarget.blur();
+
     if (isFavorite) {
       dispatch(removeFavorite(game.id));
     } else {

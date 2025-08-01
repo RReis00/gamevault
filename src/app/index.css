@@ -2,7 +2,7 @@
    THEME TOKENS
    =========================== */
 :root {
-  /* Light */
+  /* LIGHT THEME */
   --bg: #ffffff;
   --text: #0a0a0a;
   --muted: #5f6b7a;
@@ -27,9 +27,8 @@
 
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04), 0 1px 6px rgba(0, 0, 0, 0.04);
 }
-
+/* DARK THEME */
 :root[data-theme="dark"] {
-  /* Dark */
   --bg: #0b0f14;
   --text: #e7e8ea;
   --muted: #a3adba;
@@ -63,30 +62,25 @@ body {
 }
 
 /* ===========================
-   Bootstrap sync (core vars)
+   Bootstrap sync
    =========================== */
 :root,
 :root[data-theme="light"],
 :root[data-theme="dark"] {
-  /* Text/Bg */
   --bs-body-bg: var(--bg);
   --bs-body-color: var(--text);
 
-  /* Navbar */
   --bs-navbar-bg: var(--bg);
   --bs-navbar-color: var(--text);
 
-  /* Cards */
   --bs-card-bg: var(--card-bg);
   --bs-card-color: var(--text);
   --bs-card-border-color: var(--card-border);
 
-  /* List group */
   --bs-list-group-bg: var(--card-bg);
   --bs-list-group-color: var(--text);
   --bs-list-group-border-color: var(--card-border);
 
-  /* Borders */
   --bs-border-color: var(--border);
 }
 
@@ -113,28 +107,65 @@ body {
 }
 
 /* ===========================
-   BUTTONS
+   BUTTONS 
    =========================== */
 .btn-accent {
   background: var(--accent);
   color: var(--accent-contrast);
   border: 1px solid var(--accent);
 }
-.btn-accent:hover,
-.btn-accent:focus {
-  filter: brightness(1.05);
-  color: var(--accent-contrast);
-}
-
 .btn-outline-accent {
   background: transparent;
   color: var(--accent);
   border: 1px solid var(--accent);
 }
-.btn-outline-accent:hover,
-.btn-outline-accent:focus {
-  background: var(--accent);
-  color: var(--accent-contrast);
+
+.btn.btn-accent {
+  background-color: var(--accent) !important;
+  color: var(--accent-contrast) !important;
+  border-color: var(--accent) !important;
+  transition: background-color 0.15s ease, color 0.15s ease,
+    border-color 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+}
+.btn.btn-accent:hover,
+.btn.btn-accent:active {
+  filter: brightness(0.92);
+  color: var(--accent-contrast) !important;
+  border-color: var(--accent) !important;
+  background-image: none !important;
+}
+.btn.btn-accent:focus,
+.btn.btn-accent:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 0.2rem rgba(200, 162, 65, 0.35) !important;
+}
+:root[data-theme="light"] .btn.btn-accent:focus,
+:root[data-theme="light"] .btn.btn-accent:focus-visible {
+  box-shadow: 0 0 0 0.2rem rgba(10, 10, 10, 0.25) !important;
+}
+
+.btn.btn-outline-accent {
+  background-color: transparent !important;
+  color: var(--accent) !important;
+  border-color: var(--accent) !important;
+  transition: background-color 0.15s ease, color 0.15s ease,
+    border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.btn.btn-outline-accent:hover,
+.btn.btn-outline-accent:active {
+  background-color: var(--accent) !important;
+  color: var(--accent-contrast) !important;
+  border-color: var(--accent) !important;
+  background-image: none !important;
+}
+.btn.btn-outline-accent:focus,
+.btn.btn-outline-accent:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 0.2rem rgba(200, 162, 65, 0.35) !important;
+}
+:root[data-theme="light"] .btn.btn-outline-accent:focus,
+:root[data-theme="light"] .btn.btn-outline-accent:focus-visible {
+  box-shadow: 0 0 0 0.2rem rgba(10, 10, 10, 0.25) !important;
 }
 
 .btn-accent-ghost {
@@ -147,7 +178,6 @@ body {
   border-color: rgba(255, 255, 255, 0.12);
 }
 
-/* Toggle */
 .btn-toggle-theme {
   display: inline-flex;
   align-items: center;
@@ -210,7 +240,6 @@ body {
   border: 1px solid var(--card-border);
 }
 
-/* Badges */
 .badge-soft {
   display: inline-block;
   padding: 0.35rem 0.5rem;
