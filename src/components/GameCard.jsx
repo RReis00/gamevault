@@ -11,7 +11,6 @@ function GameCard({ game }) {
   const { theme } = useTheme();
   const dispatch = useDispatch();
   const favorites = useSelector((state) => state.favorites.list);
-
   const isFavorite = favorites.some((fav) => fav.id === game.id);
 
   const handleClick = (e) => {
@@ -26,11 +25,7 @@ function GameCard({ game }) {
 
   return (
     <Link to={`/game/${game.id}`} className="text-decoration-none">
-      <div
-        className={`card h-100 shadow-sm ${
-          theme === "dark" ? "bg-dark text-light" : ""
-        }`}
-      >
+      <div className={"card h-100 shadow-sm app-card"}>
         <img
           src={game.background_image}
           className="card-img-top"
@@ -40,15 +35,13 @@ function GameCard({ game }) {
         <div className="card-body d-flex flex-column justify-content-between">
           <div>
             <h5 className="card-title">{game.name}</h5>
-            <p className="card-text mb-1">Rating: {game.rating}</p>
+            <p className="card-text mb-1">
+              <span className="badge badge-soft">Rating: {game.rating}</span>
+            </p>
           </div>
           <button
             className={`btn ${
-              isFavorite
-                ? "btn-danger"
-                : theme === "dark"
-                ? "btn-outline-light"
-                : "btn-outline-dark"
+              isFavorite ? "btn-accent" : "btn-outline-accent"
             } mt-2`}
             onClick={handleClick}
           >

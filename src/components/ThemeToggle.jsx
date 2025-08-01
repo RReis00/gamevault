@@ -6,11 +6,15 @@ function ThemeToggle() {
   return (
     <button
       type="button"
-      className="btn btn-outline-secondary position-absolute top-0 end-0 m-3"
+      className="btn btn-toggle-theme ms-2"
       onClick={toggleTheme}
+      aria-label="Change Theme"
       title="Toggle theme"
     >
-      {theme === "light" ? "🌙" : "☀️"}
+      <span className="toggle-icon">{theme === "light" ? "🌙" : "☀️"}</span>
+      <span className="toggle-text">
+        {theme === "light" ? "Dark" : "Light"}
+      </span>
     </button>
   );
 }

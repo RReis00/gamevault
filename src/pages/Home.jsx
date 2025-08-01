@@ -58,25 +58,25 @@ function Home() {
 
   return (
     <div>
-      <h1 className="text-center mb-4"> {titleGenre} Games</h1>
+      <h1 className="text-center mb-4 page-title"> {titleGenre} Games</h1>
       <SearchBar onSearch={handleSearch} />
       <GenreFilter onSelectGenre={handleGenreSelect} />
 
       {status === "loading" && list.length === 0 && (
         <div className="text-center mt-4">
-          <div className="spinner-border text-primary" role="status" />
+          <div className="spinner-border text-accent" role="status" />
           <p className="mt-2">Loading games...</p>
         </div>
       )}
 
       {status === "failed" && (
-        <div className="alert alert-danger text-center mt-4" role="alert">
+        <div className="alert alert-danger-soft text-center mt-4" role="alert">
           ❌ Error loading games: <strong>{error}</strong>
           Please try again later.
         </div>
       )}
       {status === "succeeded" && list.length === 0 && (
-        <div className="alert alert-warning text-center mt-4" role="alert">
+        <div className="alert alert-warning-soft text-center mt-4" role="alert">
           We did not find any games for this search. 😕
         </div>
       )}
@@ -98,7 +98,7 @@ function Home() {
 
       {status === "loading" && list.length > 0 && (
         <div className="text-center my-4">
-          <div className="spinner-border text-primary" role="status" />
+          <div className="spinner-border text-accent" role="status" />
         </div>
       )}
     </div>

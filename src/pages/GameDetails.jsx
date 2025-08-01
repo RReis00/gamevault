@@ -23,7 +23,7 @@ function GameDetails() {
   if (detailStatus === "loading") {
     return (
       <div className="text-center mt-5">
-        <div className="spinner-border text-primary" role="status" />
+        <div className="spinner-border text-accent" role="status" />
         <p className="mt-2">Loading game details...</p>
       </div>
     );
@@ -31,7 +31,7 @@ function GameDetails() {
 
   if (detailStatus === "failed") {
     return (
-      <div className="alert alert-danger text-center mt-5" role="alert">
+      <div className="alert alert-danger-soft text-center mt-5" role="alert">
         ❌ Error loading game details: <strong>{error}</strong>
       </div>
     );
@@ -53,7 +53,7 @@ function GameDetails() {
 
   return (
     <div className="container mt-5">
-      <h1 className="text-center mb-4">{name}</h1>
+      <h1 className="text-center mb-4 page-title">{name}</h1>
 
       <div className="row mb-4">
         <div className="col-md-8 offset-md-2">
@@ -63,17 +63,17 @@ function GameDetails() {
               "https://via.placeholder.com/800x400?text=No+Image"
             }
             alt={name}
-            className="img-fluid rounded shadow"
+            className="img-fluid rounded shadow app-image"
           />
         </div>
       </div>
 
       <div className="mb-4">
-        <h5>Description</h5>
+        <h5 className="section-title">Description</h5>
         <p dangerouslySetInnerHTML={{ __html: description }}></p>
       </div>
 
-      <ul className="list-group mb-4">
+      <ul className="list-group mb-4 list-neutral">
         <li className="list-group-item">
           <strong>Rating:</strong> {rating}
         </li>
@@ -98,7 +98,7 @@ function GameDetails() {
 
       {trailers.length > 0 ? (
         <div className="mb-5">
-          <h5>Trailer</h5>
+          <h5 className="section-title">Trailer</h5>
           <div className="ratio ratio-16x9">
             <video controls className="w-100 rounded shadow-sm">
               <source src={trailers[0].data.max} type="video/mp4" />
@@ -107,21 +107,21 @@ function GameDetails() {
           </div>
         </div>
       ) : (
-        <div className="alert alert-info text-center mb-5">
+        <div className="alert alert-info-soft text-center mb-5">
           No trailer available for this game.
         </div>
       )}
 
       {screenshots.length > 0 ? (
         <div className="mb-5">
-          <h5>Screenshots</h5>
+          <h5 className="section-title">Screenshots</h5>
           <div className="d-flex flex-wrap gap-3 justify-content-center">
             {screenshots.map((s) => (
               <img
                 key={s.id}
                 src={s.image}
                 alt="Screenshot"
-                className="img-thumbnail shadow-sm"
+                className="img-thumbnail shadow-sm thumb-image"
                 style={{ maxWidth: "220px", cursor: "pointer" }}
                 onClick={() => setSelectedScreenshot(s.image)}
               />
@@ -129,7 +129,7 @@ function GameDetails() {
           </div>
         </div>
       ) : (
-        <div className="alert alert-info text-center mb-5">
+        <div className="alert alert-info-soft text-center mb-5">
           No screenshots available.
         </div>
       )}
@@ -169,10 +169,10 @@ function GameDetails() {
 
       <div className="text-center">
         <button
-          className="btn btn-secondary mb-4"
+          className="btn btn-outline-accent mb-4"
           onClick={() => window.history.back()}
         >
-          Voltar
+          Go Back
         </button>
       </div>
     </div>

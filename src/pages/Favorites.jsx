@@ -6,7 +6,7 @@ function Favorites() {
 
   return (
     <div className="text-center mt-5">
-      <h1 className="text-center mb-4">Favorites</h1>
+      <h1 className="text-center mb-4 page-title">Favorites</h1>
       {favorites.length === 0 ? (
         <p className="text-center">No Favorite games yet</p>
       ) : (

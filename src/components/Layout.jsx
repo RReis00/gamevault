@@ -9,23 +9,23 @@ function Layout() {
   return (
     <>
       <Navbar
-        bg={theme === "dark" ? "dark" : "light"}
-        variant={theme === "dark" ? "dark" : "light"}
+        className="shadow-sm app-navbar"
+        bg={undefined}
+        variant={undefined}
         expand="md"
-        className="shadow-sm"
       >
         <Container>
           <Navbar.Brand as={Link} to="/" className="fw-bold fs-4">
-            <span className="text-warning">GameVault</span>
+            <span className="text-accent">GameVault</span>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="main-navbar" />
           <Navbar.Collapse id="main-navbar">
             <Nav className="ms-auto align-items-center">
               <Nav.Link as={Link} to="/" className="me-2">
-                <span className="text-warning">Home</span>
+                <span className="nav-link-accent">Home</span>
               </Nav.Link>
               <Nav.Link as={Link} to="/favorites" className="me-3">
-                <span className="text-warning">Favorites</span>
+                <span className="nav-link-accent">Favorites</span>
               </Nav.Link>
               <ThemeToggle />
             </Nav>
@@ -36,8 +36,8 @@ function Layout() {
       <main
         className="py-4"
         style={{
-          backgroundColor: "var(--bg-color)",
-          color: "var(--text-color)",
+          backgroundColor: "var(--bg)",
+          color: "var(--text)",
         }}
       >
         <Container>

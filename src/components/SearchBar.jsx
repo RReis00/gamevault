@@ -17,12 +17,12 @@ function SearchBar({ onSearch }) {
     >
       <input
         type="text"
-        className="form-control w-50 me-2"
+        className="form-control w-50 me-2 input-accent"
         placeholder="Search games..."
         value={term}
         onChange={(e) => setTerm(e.target.value)}
       />
-      <button className="btn btn-dark" type="submit">
+      <button className="btn btn-accent" type="submit">
         Search
       </button>
     </form>
