@@ -109,6 +109,16 @@ body {
 /* ===========================
    BUTTONS 
    =========================== */
+
+.lightbox-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px; /* mantém botão quadrado */
+  height: 40px;
+  padding: 0; /* remove padding extra */
+}
+
 .btn-accent {
   background: var(--accent);
   color: var(--accent-contrast);

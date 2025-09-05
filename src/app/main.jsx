@@ -9,8 +9,11 @@ import { ThemeProvider } from "../context/ThemeContext.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
+    {/* Redux store provider → makes global state accessible via useSelector/useDispatch */}
     <Provider store={store}>
+      {/* Theme provider → supplies theme + toggle function to the app */}
       <ThemeProvider>
+        {/* Main app component (contains routing, layout, pages, etc.) */}
         <App />
       </ThemeProvider>
     </Provider>
